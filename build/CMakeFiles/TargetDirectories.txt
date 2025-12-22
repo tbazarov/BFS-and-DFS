@@ -1,0 +1,3 @@
+/home/tamir/Рабочий стол/ооп c++/GraphTraversal/build/CMakeFiles/GraphTraversal.dir
+/home/tamir/Рабочий стол/ооп c++/GraphTraversal/build/CMakeFiles/edit_cache.dir
+/home/tamir/Рабочий стол/ооп c++/GraphTraversal/build/CMakeFiles/rebuild_cache.dir
