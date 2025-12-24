@@ -1,6 +1,7 @@
 #include "BFS.hpp"
 #include <queue>
-#include <vector>
+//#include <vector>
+#include <unordered_set>
 #include <iostream>
 
 void BFS:: onStart() {
@@ -20,11 +21,12 @@ void BFS:: onVisitEdge(Graph::Vertex from, Graph::Vertex to) {
 }
 
 void BFS::doTraverse(const Graph& graph, Graph::Vertex start) {
-    size_t n = graph.getNumVertices();
-    std::vector<bool> visited(n, false);
+    // size_t n = graph.getNumVertices();
+    // std::vector<bool> visited(n, false);
+    std::unordered_set<Graph::Vertex> visited;
     std::queue<Graph::Vertex> q;
     q.push(start);
-    visited[start] = true;
+    visited.insert(start);
 
     while (!q.empty()) {
         Graph::Vertex v = q.front();
@@ -33,8 +35,8 @@ void BFS::doTraverse(const Graph& graph, Graph::Vertex start) {
 
         for (Graph::Vertex neighbor : graph.getAdjacencyList().at(v)) {
             onVisitEdge(v, neighbor);
-            if (!visited[neighbor]) { 
-                visited[neighbor] = true;
+            if (visited.find(neighbor) == visited.end()) { 
+                visited.insert(neighbor);
                 q.push(neighbor); 
             }
         }
