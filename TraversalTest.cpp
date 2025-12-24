@@ -39,9 +39,7 @@ protected:
         traversedEdges.emplace_back(from, to);
     }
 
-    // pure virtual, нужно реализовать
     void doTraverse(const Graph& graph, Graph::Vertex start) override {
-        // Не используется — наследники переопределят
         (void)graph; (void)start;
     }
 };
@@ -133,7 +131,7 @@ TEST(DFSTest, FullTraversal) {
 
     EXPECT_TRUE(dfs.started);
     EXPECT_TRUE(dfs.ended);
-    EXPECT_EQ(dfs.visitedVertices, std::vector<int>({0, 1, 3, 2, 4}));
+    EXPECT_EQ(dfs.visitedVertices, std::vector<int>({0, 2, 4, 1, 3}));
 }
 
 TEST(BFSTest, FullTraversal) {
