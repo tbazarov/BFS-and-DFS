@@ -1,7 +1,8 @@
 #include "DFS.hpp"
 #include <stack>
-#include <vector>
+//#include <vector>
 #include <iostream>
+#include <unordered_set>
 
 void DFS:: onStart() {
     std::cout << "Старт DFS\n";
@@ -20,8 +21,9 @@ void DFS:: onVisitEdge(Graph::Vertex from, Graph::Vertex to) {
 }
 
 void DFS::doTraverse(const Graph& graph, Graph::Vertex start) {
-    size_t n = graph.getNumVertices();
-    std::vector<bool> visited(n, false);
+    //size_t n = graph.getNumVertices();
+    //std::vector<bool> visited(n, false);
+    std::unordered_set<Graph::Vertex> visited;
     std::stack<Graph::Vertex> stack;
     stack.push(start);
 
@@ -29,18 +31,26 @@ void DFS::doTraverse(const Graph& graph, Graph::Vertex start) {
         Graph::Vertex v = stack.top();
         stack.pop();
 
+        // if (visited[v]) continue;
+        // visited[v] = true;
+        // onVisitVertex(v);
 
-        if (visited[v]) continue;
-        visited[v] = true;
+        if (visited.find(v) != visited.end()) continue;
+
+        visited.insert(v);
         onVisitVertex(v);
 
-        std::vector<Graph::Vertex> neighbors(
-            graph.getAdjacencyList().at(v).rbegin(),
-            graph.getAdjacencyList().at(v).rend()
-        );
-        for (Graph::Vertex neighbor : neighbors) {
+        // std::vector<Graph::Vertex> neighbors(
+        //     graph.getAdjacencyList().at(v).rbegin(),
+        //     graph.getAdjacencyList().at(v).rend()
+        // );
+
+        for (Graph::Vertex neighbor : graph.getAdjacencyList().at(v)) {
             onVisitEdge(v, neighbor);
-            if (!visited[neighbor]) { stack.push(neighbor); }
+            if (visited.find(neighbor) == visited.end()) 
+            { 
+                stack.push(neighbor); 
+            }
         }
     }
 
